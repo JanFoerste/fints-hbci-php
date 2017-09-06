@@ -15,9 +15,11 @@ use Fhp\Response\GetAccounts;
 use Fhp\Response\GetSaldo;
 use Fhp\Response\GetSEPAAccounts;
 use Fhp\Response\GetStatementOfAccount;
+use Fhp\Segment\HKCCS;
 use Fhp\Segment\HKKAZ;
 use Fhp\Segment\HKSAL;
 use Fhp\Segment\HKSPA;
+use Fhp\Segment\HKTAN;
 use Psr\Log\LoggerInterface;
 use Psr\Log\NullLogger;
 
@@ -67,7 +69,8 @@ class FinTs
         $username,
         $pin,
         LoggerInterface $logger = null
-    ) {
+    )
+    {
         $this->server = $server;
         $this->port = $port;
         $this->logger = null == $logger ? new NullLogger() : $logger;
@@ -222,7 +225,8 @@ class FinTs
         \DateTime $from,
         \DateTime $to,
         $touchdown = null
-    ) {
+    )
+    {
         // version 4, 5, 6, 7
 
         // version 5
@@ -321,7 +325,7 @@ class FinTs
         $dialog->syncDialog();
         $dialog->initDialog();
 
-        switch ((int) $dialog->getHksalMaxVersion()) {
+        switch ((int)$dialog->getHksalMaxVersion()) {
             case 4:
             case 5:
                 $hksalAccount = new Deg(
@@ -373,6 +377,55 @@ class FinTs
         $response = new GetSaldo($response->rawResponse);
 
         return $response->getSaldoModel();
+    }
+
+    public function sepaTransfer(SEPAAccount $account, $painXml, $tanCallback)
+    {
+        $painXml = $this->cleanXml($painXml);
+        $dialog = $this->getDialog();
+
+        $account = new Kti(
+            $account->getIban(),
+            $account->getBic(),
+            $account->getAccountNumber(),
+            $account->getSubAccount(),
+            new Kik(280, $account->getBlz())
+        );
+
+        $msg = new Message(
+            $this->bankCode,
+            $this->username,
+            $this->pin,
+            $dialog->getSystemId(),
+            $dialog->getDialogId(),
+            $dialog->getMessageNumber(),
+            [
+                new HKCCS(HKCCS::VERSION, 3, $account, "urn?:iso?:std?:iso?:20022?:tech?:xsd?:pain.001.003.03", $painXml),
+                new HKTAN(HKTAN::VERSION, 4)
+            ],
+            [
+                // @TODO: make dynamic
+                AbstractMessage::OPT_PINTAN_MECH => 900
+            ]
+        );
+
+        $response = $dialog->sendMessage($msg);
+
+        $this->logger->info('SEPA TRANSFER RESPONSE ==> ' . $response->rawResponse);
+        return;
+    }
+
+    /**
+     * @param $xml
+     * @return string
+     */
+    public function cleanXml($xml)
+    {
+        $dom = new \DOMDocument;
+        $dom->preserveWhiteSpace = FALSE;
+        $dom->loadXML($xml);
+        $dom->formatOutput = false;
+        return $dom->saveXml();
     }
 
     /**
