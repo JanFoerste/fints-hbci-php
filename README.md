@@ -6,15 +6,19 @@
 [![Monthly Downloads](https://img.shields.io/packagist/dm/mschindler83/fints-hbci-php.svg)](https://packagist.org/packages/mschindler83/fints-hbci-php)
 [![License](https://img.shields.io/github/license/mschindler83/fints-hbci-php.svg)](https://github.com/mschindler83/fints-hbci-php/blob/master/LICENSE)
 
+Forked from mschindler83/fints-hbci-php
+
 A PHP library implementing the basics of the FinTS / HBCI protocol.
 It can be used to fetch the balance of connected bank accounts and for fetching bank statements of accounts.
+
+Added functionality for sending transfers.
 
 ## Getting Started
 
 Install via composer:
 
 ```bash
-composer require mschindler83/fints-hbci-php
+composer require janfoerste/php-fints
 ```
 
 ## How to use it
