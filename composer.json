@@ -2,7 +2,6 @@
   "name": "janfoerste/php-fints",
   "description": "PHP Library for fints and hbci. Forked from mschindler83/fints-hbci-php",
   "homepage": "http://fints-hbci-php.markus-schindler.de",
-  "version": "0.0.2",
   "license": "MIT",
   "autoload": {
     "psr-0": {
