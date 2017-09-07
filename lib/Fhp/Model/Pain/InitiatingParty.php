@@ -92,4 +92,12 @@ class InitiatingParty
         $this->issuer = $issuer;
     }
 
+    /**
+     * @return string
+     */
+    public function getTag()
+    {
+        return self::TAG;
+    }
+
 }

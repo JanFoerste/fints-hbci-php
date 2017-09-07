@@ -8,9 +8,6 @@
 
 namespace Fhp\Model\Pain;
 
-use Fhp\Model\Pain\GroupHeader;
-use Fhp\Model\Pain\PaymentInformation;
-
 class Pain
 {
     const ROOT_TAG = 'CstmrCdtTrfInitn';

@@ -71,4 +71,11 @@ class PaymentTypeInformation
         $this->serviceLevel = $serviceLevel;
     }
 
+    /**
+     * @return string
+     */
+    public function getTag()
+    {
+        return self::TAG;
+    }
 }

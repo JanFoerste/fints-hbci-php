@@ -32,4 +32,12 @@ class ServiceLevel
     {
         $this->code = $code;
     }
+
+    /**
+     * @return string
+     */
+    public function getTag()
+    {
+        return self::TAG;
+    }
 }
