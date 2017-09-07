@@ -6,7 +6,7 @@
  * Time: 11:12
  */
 
-namespace Fhp\Model;
+namespace Fhp\Model\Pain;
 
 use Fhp\Model\Pain\GroupHeader;
 use Fhp\Model\Pain\PaymentInformation;
