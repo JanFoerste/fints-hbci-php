@@ -36,7 +36,7 @@ class PainXML
         $root = $this->document->createElement('Document');
         $root->setAttribute('xmlns', sprintf('urn:iso:std:iso:20022:tech:xsd:%s', self::PAIN_FORMAT));
         $root->setAttribute('xmlns:xsi', 'http://www.w3.org/2001/XMLSchema-instance');
-        $root->setAttribute('xsi:schemaLocation', sprintf('urn:iso:std:iso:20022:tech:xsd:%s %s.xsd', self::PAIN_FORMAT));
+        $root->setAttribute('xsi:schemaLocation', sprintf('urn:iso:std:iso:20022:tech:xsd:%s %s.xsd', self::PAIN_FORMAT, self::PAIN_FORMAT));
 
         $init = $this->document->createElement(Pain::ROOT_TAG);
         $init->appendChild($this->createGroupHeaderXML($pain->getGroupHeader()));
