@@ -21,7 +21,7 @@ class PainXML
     /**
      * @TODO: support more formats
      */
-    const PAIN_FORMAT = 'pain.001.002.003';
+    const PAIN_FORMAT = 'pain.001.003.03';
 
     /**
      * @var \DOMDocument
@@ -36,11 +36,13 @@ class PainXML
         $root = $this->document->createElement('Document');
         $root->setAttribute('xmlns', sprintf('urn:iso:std:iso:20022:tech:xsd:%s', self::PAIN_FORMAT));
         $root->setAttribute('xmlns:xsi', 'http://www.w3.org/2001/XMLSchema-instance');
+        $root->setAttribute('xsi:schemaLocation', sprintf('urn:iso:std:iso:20022:tech:xsd:%s %s.xsd', self::PAIN_FORMAT));
 
         $init = $this->document->createElement(Pain::ROOT_TAG);
         $init->appendChild($this->createGroupHeaderXML($pain->getGroupHeader()));
         $init->appendChild($this->createPaymentInformationXML($pain->getPaymentInformation()));
 
+        $root->appendChild($init);
         $this->document->appendChild($root);
         return $this->document->saveXML();
     }
@@ -84,6 +86,7 @@ class PainXML
         $serviceLevel->appendChild($this->document->createElement('Cd', $pmtTypeInfo->getServiceLevel()->getCode()));
 
         $paymentTypeInformation->appendChild($serviceLevel);
+        $information->appendChild($paymentTypeInformation);
 
         $information->appendChild($this->document->createElement('ReqdExctnDt', $paymentInformation->getRequestedExecutionDate()));
 
