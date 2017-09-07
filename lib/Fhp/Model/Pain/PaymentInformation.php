@@ -148,7 +148,7 @@ class PaymentInformation
      */
     public function getControlSum()
     {
-        return round($this->controlSum, 2, PHP_ROUND_HALF_DOWN);
+        return number_format($this->controlSum, 2);
     }
 
     /**
