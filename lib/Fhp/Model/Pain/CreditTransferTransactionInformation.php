@@ -101,7 +101,7 @@ class CreditTransferTransactionInformation
      */
     public function getInstructedAmount()
     {
-        return $this->instructedAmount;
+        return round($this->instructedAmount, 2, PHP_ROUND_HALF_DOWN);
     }
 
     /**

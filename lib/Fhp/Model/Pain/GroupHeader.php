@@ -118,7 +118,7 @@ class GroupHeader
      */
     public function getControlSum()
     {
-        return $this->controlSum;
+        return round($this->controlSum, 2, PHP_ROUND_HALF_DOWN);
     }
 
     /**
