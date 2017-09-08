@@ -15,6 +15,7 @@ use Fhp\DataTypes\Kti;
 class HKCCS extends AbstractSegment
 {
     const NAME = 'HKCCS';
+    const DESCRIPTOR = 'urn?:iso?:std?:iso?:20022?:tech?:xsd?:pain.001.003.03';
     const VERSION = 1;
 
     /**

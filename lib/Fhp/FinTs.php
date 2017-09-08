@@ -400,7 +400,7 @@ class FinTs
             $dialog->getDialogId(),
             $dialog->getMessageNumber(),
             [
-                new HKCCS(HKCCS::VERSION, 3, $account, "urn?:iso?:std?:iso?:20022?:tech?:xsd?:pain.001.003.03", $painXml),
+                new HKCCS(HKCCS::VERSION, 3, $account, HKCCS::DESCRIPTOR, $painXml),
                 new HKTAN(HKTAN::VERSION, 4)
             ],
             [

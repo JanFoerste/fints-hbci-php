@@ -31,7 +31,8 @@ class PainXML
     public function getAsXml(Pain $pain)
     {
         $this->document = new \DOMDocument('1.0', 'utf-8');
-        $this->document->formatOutput = true;
+        $this->document->preserveWhiteSpace = false;
+        $this->document->formatOutput = false;
 
         $root = $this->document->createElement('Document');
         $root->setAttribute('xmlns', sprintf('urn:iso:std:iso:20022:tech:xsd:%s', self::PAIN_FORMAT));
